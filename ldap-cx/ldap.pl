@@ -16,6 +16,13 @@ ldx(LDX) :- connect.
 %%---------------------------------------------------------------------------
 %% Initializes the LDAP library and opens a connection to an LDAP
 %% server.
+%%
+%% Connection options:
+%%
+%%   host         LDAP server hostname/ip address. Defaults to localhost.
+%%   port         Port to connect to. Defaults to 389.
+%%   dn           Base DN.
+%%   password     Password for bind operation.
 %%---------------------------------------------------------------------------
 
 connect :- connect([]).
@@ -31,8 +38,19 @@ connect(OPTIONS) :-
 
 
 
+%%---------------------------------------------------------------------------
+%% Closes the server connection.
+%%---------------------------------------------------------------------------
+
+close :- ldap_close(LDX).
+
+
+
 %---------------------------------------------------------------------------
 % $Log$
+% Revision 1.3  2005/03/04 15:57:30  gjm
+% Added close/0.
+%
 % Revision 1.2  2004/11/18 15:53:02  gjm
 % *** empty log message ***
 %
