@@ -152,7 +152,7 @@
 
 
 %%---------------------------------------------------------------------------
-%% Add/Edit/Delete.
+%% Add/Modify/Delete.
 %%---------------------------------------------------------------------------
 
 %% ldap_add(+ldx, +dn, +data)
@@ -164,6 +164,17 @@
 %%   data           Data to be added.
 %%
 :- foreign(ldap_add(+integer, +string, +term), [fct_name(l_add)]).
+
+
+%% ldap_modify(+ldx, +dn, +data)
+%%
+%%   ldx            LDAP link.
+%%
+%%   dn             DN to modify.
+%%
+%%   data           Data to be modified.
+%%
+:- foreign(ldap_modify(+integer, +string, +term), [fct_name(l_modify)]).
 
 
 %% ldap_delete(+ldx, +dn)
@@ -178,6 +189,9 @@
 
 %---------------------------------------------------------------------------
 % $Log$
+% Revision 1.3  2004/12/06 12:13:23  gjm
+% Added foreign ldap_modify/3.
+%
 % Revision 1.2  2004/11/18 15:53:48  gjm
 % Added foreign ldap_close/1, ldap_add/3 and ldap_delete/2.
 %
