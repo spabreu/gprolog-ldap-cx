@@ -32,7 +32,8 @@ LDAP-CX-OBJECTS = $(subst .c,.o,$(subst .pl,.o,$(LDAP-CX-INPUTS0)))
 
 
 
-CCOPTS = -g -DDEBUG
+CCOPTS = -g
+#CCOPTS = -g -DDEBUG
 LIBS   = -lldap
 GPLC   = gplc-cx
 
@@ -71,6 +72,9 @@ distclean: clean
 
 
 # $Log$
+# Revision 1.6  2005/03/04 16:51:02  gjm
+# *** empty log message ***
+#
 # Revision 1.5  2005/03/04 15:57:03  gjm
 # *** empty log message ***
 #
