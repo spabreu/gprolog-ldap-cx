@@ -16,7 +16,7 @@ item(VALUES) :-
 
 %% Instantiates VALUE with each of the attribute's values, through
 %% backtracking.
-value(ATTRIBUTE, VALUE) :-
+value_(ATTRIBUTE, VALUE) :-
         values(ATTRIBUTE, VALUES),
         member(VALUE, VALUES).
 
@@ -24,13 +24,7 @@ value(ATTRIBUTE, VALUE) :-
 %% Instantiates VALUES with all of the attribute's values.
 values(ATTRIBUTE, FVALUES) :-
         ldx(LDX),
-        ldap_values(LDX, RESULT, ATTRIBUTE, 0, VALUES),
-        fix_values(VALUES, FVALUES).
-
-
-%% If VALUES is single element list, removes the list.
-fix_values([V], V) :- !.
-fix_values(Vs, Vs).
+        ldap_values(LDX, RESULT, ATTRIBUTE, 0, VALUES).
 
 
 
@@ -74,6 +68,10 @@ result(RESULT).
 
 %---------------------------------------------------------------------------
 % $Log$
+% Revision 1.4  2005/03/07 12:10:21  gjm
+% * value/2 becomes value_/2 due to a bug in GNU Prolog/CX.
+% * values/2 no longer removes the list if it only has one element.
+%
 % Revision 1.3  2004/12/06 12:15:32  gjm
 % item/1 instantiates, for each entry, with a list of attributes and
 % respective values.
