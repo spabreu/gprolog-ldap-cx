@@ -7,20 +7,31 @@
 
 %% ldap_init(+host, +port, -ldx)
 %%
-%%   host
-%%   port
-%%   ldx
-
+%%   host           LDAP server hostname.
+%%
+%%   port           LDAP server port.
+%%
+%%   ldx            LDAP link.
+%%
 :- foreign(ldap_init(+string, +positive, -integer), [fct_name(l_init)]).
 
 
 %% ldap_bind(+ldx, +dn, +password)
 %%
-%%   ldx
-%%   dn
-%%   password
-
+%%   ldx            LDAP link.
+%%
+%%   dn             Bind DN.
+%%
+%%   password       Password
+%%
 :- foreign(ldap_bind(+integer, +string, +string), [fct_name(l_bind)]).
+
+
+%% ldap_close(+ldx)
+%%
+%%   ldx            LDAP link.
+%%
+:- foreign(ldap_close(+integer), [fct_name(l_close)]).
 
 
 
@@ -29,7 +40,7 @@
 %%---------------------------------------------------------------------------
 
 %% ldap_search(+ldx, +base, +scope, +filter, +attrs, +attrs_only, -msgid)
-
+%%
 %%   ldx            LDAP link.
 %%
 %%   base           Search base.
@@ -48,11 +59,9 @@
 %%
 %%   msgid          Search result identifier.
 %%
-
 :- foreign(ldap_search(+integer, +string, +integer, +string, +term, +integer,
                        -integer),
            [fct_name(l_search)]).
-
 
 
 %% ldap_result(+ldx, +msgid, +all, +timeout, -res_type, -result)
@@ -69,7 +78,7 @@
 %%   res_type       Ignore.
 %%
 %%   result         Result identifier.
-
+%%
 :- foreign(ldap_result(+integer, +integer, +integer, +integer,
                        -integer, -integer),
            [fct_name(l_result)]).
@@ -88,10 +97,9 @@
 %%
 %%   count          Number of objects returned.
 %%
-
+%%
 :- foreign(ldap_count_entries(+integer, +integer, -integer),
            [fct_name(l_count_entries)]).
-
 
 
 %% ldap_entry(+ldx, +result)
@@ -100,7 +108,7 @@
 %%
 %%   result         Result identifier.
 %%
-
+%%
 :- foreign(ldap_entry(+integer, +integer),
            [choice_size(1), fct_name(l_entry)]).
 
@@ -112,7 +120,7 @@
 %%   result         Result identifier.
 %%
 %%   attrib         Attribute.
-
+%%
 :- foreign(ldap_attribute(+integer, +integer, -string),
            [choice_size(1), fct_name(l_attribute)]).
 
@@ -129,7 +137,6 @@
 %%
 %%   values         List with the attribute's values.
 %%
-
 :- foreign(ldap_values(+integer, +integer, +string, +integer, -term),
            [fct_name(l_values)]).
 
@@ -140,14 +147,41 @@
 %%
 %%   result         Result identifier.
 %%
-
 :- foreign(ldap_dn(+integer, +integer, -string), [fct_name(l_dn)]).
+
+
+
+%%---------------------------------------------------------------------------
+%% Add/Edit/Delete.
+%%---------------------------------------------------------------------------
+
+%% ldap_add(+ldx, +dn, +data)
+%%
+%%   ldx            LDAP link.
+%%
+%%   dn             DN to add.
+%%
+%%   data           Data to be added.
+%%
+:- foreign(ldap_add(+integer, +string, +term), [fct_name(l_add)]).
+
+
+%% ldap_delete(+ldx, +dn)
+%%
+%%   ldx            LDAP link.
+%%
+%%   dn             DN to delete.
+%%
+:- foreign(ldap_delete(+integer, +string), [fct_name(l_del)]).
 
 
 
 %---------------------------------------------------------------------------
 % $Log$
-% Revision 1.1  2004/11/17 10:35:01  gjm
-% Initial revision
+% Revision 1.2  2004/11/18 15:53:48  gjm
+% Added foreign ldap_close/1, ldap_add/3 and ldap_delete/2.
+%
+% Revision 1.1.1.1  2004/11/17 10:35:01  gjm
+% Initial revision.
 %
 
