@@ -1,0 +1,18 @@
+Source: gprolog-ldap-cx
+Section: devel
+Priority: optional
+Maintainer: Goncalo Marrafa <gjm@uevora.pt>
+Build-Depends: debhelper (>= 4.0.0), gprolog, libldap-dev
+Standards-Version: 3.6.1
+
+Package: gprolog-ldap-cx
+Architecture: any
+Depends: gprolog-cx, libldap2
+Description: LDAP interface for GNU Prolog/CX
+ This package provides an interface for GNU Prolog/CX to access LDAP
+ directories. It contains both a low-level binding for the OpenLDAP
+ client library (LDAP is the Lightweight Directory Access Protocol)
+ and a high-level API using CxLP (Contextual Logic Programming).
+ .
+ GNU Prolog/CX is the GNU Prolog compiler with Contextual Logic
+ Programming
