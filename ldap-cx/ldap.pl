@@ -4,7 +4,8 @@
 
 
 %%---------------------------------------------------------------------------
-%% Argument access.
+%% LDAP link. If not instantiated, tries to connect using default
+%% parameters.
 %%---------------------------------------------------------------------------
 
 ldx(LDX) :- nonvar(LDX), !.
@@ -13,7 +14,8 @@ ldx(LDX) :- connect.
 
 
 %%---------------------------------------------------------------------------
-%% Initialize the LDAP library and open a connection to an LDAP server.
+%% Initializes the LDAP library and opens a connection to an LDAP
+%% server.
 %%---------------------------------------------------------------------------
 
 connect :- connect([]).
@@ -31,7 +33,10 @@ connect(OPTIONS) :-
 
 %---------------------------------------------------------------------------
 % $Log$
-% Revision 1.1  2004/11/17 10:35:01  gjm
-% Initial revision
+% Revision 1.2  2004/11/18 15:53:02  gjm
+% *** empty log message ***
+%
+% Revision 1.1.1.1  2004/11/17 10:35:01  gjm
+% Initial revision.
 %
 

@@ -7,14 +7,16 @@
 %%---------------------------------------------------------------------------
 
 member_default(LIST, NAME, VALUE, _) :- memberchk(NAME=VALUE, LIST), !.
-member_default(LIST, NAME, DEFAULT, DEFAULT).
-
+member_default(_, _, DEFAULT, DEFAULT).
 
 
 
 %---------------------------------------------------------------------------
 % $Log$
-% Revision 1.1  2004/11/17 10:35:01  gjm
-% Initial revision
+% Revision 1.2  2004/11/18 15:52:18  gjm
+% *** empty log message ***
+%
+% Revision 1.1.1.1  2004/11/17 10:35:01  gjm
+% Initial revision.
 %
 
