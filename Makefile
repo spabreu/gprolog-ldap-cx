@@ -22,7 +22,6 @@ GPROLOG-LDAP-OBJECTS = $(subst .c,.o,$(subst .pl,.o,$(GPROLOG-LDAP-INPUTS0)))
 
 LDAP-CX-INPUTS  = /ldap.pl        \
                   /search.pl      \
-                  /search_2.pl    \
                   /result.pl      \
                   /add.pl         \
                   /delete.pl      \
@@ -57,8 +56,6 @@ $(TARGET): $(GPROLOG-LDAP-OBJECTS) $(LDAP-CX-OBJECTS)
 # Cleanup.
 #---------------------------------------------------------------------------
 
-.PHONY: clean distclean
-
 clean:
 	find -name \*.o | xargs rm -f
 	find -name \*~  | xargs rm -f
@@ -68,7 +65,15 @@ distclean: clean
 
 
 
+
+.PHONY: clean distclean
+
+
+
 # $Log$
+# Revision 1.5  2005/03/04 15:57:03  gjm
+# *** empty log message ***
+#
 # Revision 1.4  2004/12/06 12:12:46  gjm
 # *** empty log message ***
 #
