@@ -22,6 +22,7 @@ GPROLOG-LDAP-OBJECTS = $(subst .c,.o,$(subst .pl,.o,$(GPROLOG-LDAP-INPUTS0)))
 
 LDAP-CX-INPUTS  = /ldap.pl        \
                   /search.pl      \
+                  /search_2.pl    \
                   /result.pl      \
                   /add.pl         \
                   /delete.pl      \
@@ -69,6 +70,9 @@ distclean: clean
 
 
 # $Log$
+# Revision 1.3  2004/11/18 16:37:20  gjm
+# Added search_2.pl to ldap-cx inputs.
+#
 # Revision 1.2  2004/11/18 16:08:12  gjm
 # Final (?!) version.
 #
