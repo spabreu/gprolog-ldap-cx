@@ -82,7 +82,7 @@ Bool l_bind (int conn, char *dn, char *password)
 
 /* decifra_atomo() - traduz um átomo numa estrutura LDAPMod */
 
-LDAPMod **decifra_atomo(PlTerm *atomo, int arity)
+LDAPMod **decifra_atomo(PlTerm *atomo, int arity, int mod_op)
 {
   int i, j;
   int f[arity], a[arity];
@@ -103,7 +103,7 @@ LDAPMod **decifra_atomo(PlTerm *atomo, int arity)
 #endif
 
       ret[i] = (LDAPMod *) malloc (sizeof(LDAPMod));
-      ret[i]->mod_op = 0;  /* ignorado */
+      ret[i]->mod_op = mod_op;
       ret[i]->mod_type = Atom_Name(f[i]);
 
 #ifdef DEBUG
@@ -161,7 +161,7 @@ Bool l_add (int conn, char *dn, PlTerm dados)
 #endif
 
   /* primeiro temos de "decifrar" o átomo */
-  attrs = decifra_atomo(atomo, a);
+  attrs = decifra_atomo(atomo, a, LDAP_MOD_ADD);
   
   /* depois metemos a info no servidor */
   if ( (rc = ldap_add_s(ldap_connections[conn], dn, attrs)) != LDAP_SUCCESS) {
@@ -174,6 +174,58 @@ Bool l_add (int conn, char *dn, PlTerm dados)
 #endif
   return TRUE;
 }
+
+
+/*---------------------------------------------------------------------------
+ * Perform an LDAP modify operation.
+ *
+ * Arguments:
+ *   conn     LDAP connection
+ *   dn       DN of the entry to be modified.
+ *   mods     Prolog term with the modifications.
+ *
+ *
+ * :- foreign(ldap_modify(+integer, +string, +term)
+ *
+ *
+ * ATTENTION: For each attribute specified in mods, modify will replace
+ *            ALL existing attributes to the supplied value.
+ * 
+ */
+ 
+Bool l_modify (int conn, char *dn, PlTerm mods)
+{
+    int f, a, rc;
+    PlTerm *atom;
+    LDAPMod **ldapmods;
+    
+    initialize_ldap();
+
+    if (!check_connection(conn)) {
+        Proldap_err_connect();
+        return FALSE;
+    }
+    
+    atom = Rd_Compound_Check(mods, &f, &a);
+    
+#ifdef DEBUG
+    printf("[l_modify] functor:\t%s\n", Atom_Name(f));
+    printf("[l_modify] arity:\t%d\n",   a);
+#endif
+
+    ldapmods = decifra_atomo(atom, a, LDAP_MOD_REPLACE);
+  
+    if ((rc = ldap_modify_s(ldap_connections[conn], dn, ldapmods)) != LDAP_SUCCESS) {
+        Proldap_err(ldap_err2string(rc));
+        return FALSE;
+    }
+    
+#ifdef DEBUG
+    printf("[l_modify] Data modified successfully\n");
+#endif
+    return TRUE;
+}
+
 
 
 Bool l_del(int conn, char *dn)
@@ -639,8 +691,11 @@ Bool l_messages(void)
 
 /*
 $Log$
-Revision 1.1  2004/11/17 10:35:01  gjm
-Initial revision
+Revision 1.2  2004/12/06 12:13:47  gjm
+Added limited support for modify operations.
+
+Revision 1.1.1.1  2004/11/17 10:35:01  gjm
+Initial revision.
 
 Revision 1.1.1.1  2004/11/03 11:42:49  pp
 Initial CX version.
