@@ -1,0 +1,67 @@
+Requires:
+
+* libldap2-dev
+
+
+FEITO:
+
+%liga ao localhost na porta predefinida para o LDAP
+ l_init(LDX)
+
+%l_init/2 -> liga ao servidor especificado na porta predefinida
+ l_init(Server, LDX) 
+
+%l_init/3 -> liga ao servidor especificado na porta especificada
+ l_init(Server, Port, LDX)
+
+
+%l_bind/1 -> identifica-se como anónimo (para consultas, etc)
+ l_bind(LDX)
+
+%l_bind/3 -> identifica-se como o DN especificado utilizando a password
+ l_bind(LDX, DN, PASSWORD)
+
+
+%l_add/3 -> adiciona o DN especificado com os atributos especificados
+ l_add(LDX, DN, ATTR_TERM)
+
+
+%l_del/2 -> remove o DN especificado
+ l_del(LDX, DN)
+
+
+%l_close/1 -> completa as tarefas em espera e desliga do servidor
+ l_close(LDX)
+
+
+%l_search/7 -> procura registos segundo o filtro especificado
+ l_search(+LDX, +BASE, +SCOPE, +FILTER, +ATTRS, +ATTRS_ONLY, -MSG_ID)
+
+
+%l_result/6 -> recebe o resultado do l_search
+ l_result(+LDX, +MSG_ID, +ALL, +TIMEOUT, -RES_TYPE, -RESULT)
+
+
+%l_msgfree/1 -> liberta os recursos associados à mensagem LDAP
+ l_msgfree(+MSG_ID)
+
+
+%l_count_entries/3 -> diz quantas entradas LDAP foram devolvidas pelo l_result
+ l_count_entries(+LDX, +RESULT, -COUNT)
+
+
+%l_entry/3 -> devolve as entradas LDAP em backtrack
+ l_entry(+LDX, +RESULT, -ENTRY)
+
+
+%l_attribute/3 -> para cada entrada LDAP, devolve os vários atributos 
+		  em backtrack
+ l_attribute(+LD, +ENTRY, -ATRIB)
+
+
+%l_values/5 -> devolve todos valores do atributo na lista VALUES
+ l_values(+LD, +ENTRY, +ATRIB, +BINARY, -VALUES)
+
+
+DEBUGGING
+l_connections/0 -> devolve informação sobre as ligações a servidores LDAP

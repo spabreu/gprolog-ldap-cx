@@ -1,0 +1,10 @@
+$Id$
+
+* Mudar a gestão de erros (excepções)
+* Fazer a função l_get_dn
+
+* Função l_close_all
+* Função l_free_all_msgs
+
+* l_result() deve suportar timeout em forma de termo
+

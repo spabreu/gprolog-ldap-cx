@@ -1,0 +1,22 @@
+Funcionamento do search:
+
+* ldap_search() faz a pesquisa no servidor e os resultados ficam prontos para 
+"retrieval".
+
+* ldap_result() vai buscar os resultados, de uma de duas formas:
+
+ 1. Todos de uma vez
+ 2. Um de cada vez em chamadas sucessivas da função
+
+ e devolve um msg_id que é um apontador para um vector de "entries"
+
+* ldap_first_entry() devolve a primeira "entry" que, na realidade, é igual ao
+mgs_id do ldap_result()
+
+* ldap_next_entry() move o apontador para a "entry" seguinte.
+
+em resumo, só é necessário libertar o msg_id no fim de todos os "get_entry"
+
+e só é preciso guardar o 1º (do ldap_result()) e outro, que é igual à posição 
+da entry actual
+
