@@ -2,6 +2,15 @@
 
 :- unit(ldap_search(BASEDN, FILTER, OPTIONS)).
 
+%%---------------------------------------------------------------------------
+%% Options is a list of pairs, in the form name=value. Can be:
+%%
+%%   attrs          List of attributes to retrive. Defaults to all.
+%%
+%%   timeout        Search operation timeout value. Default to no
+%%                  timeout.
+%%---------------------------------------------------------------------------
+
 
 %%---------------------------------------------------------------------------
 %% Performs an LDAP search operation.
@@ -20,6 +29,9 @@ search(ldap_result(RES)) :-
 
 %---------------------------------------------------------------------------
 % $Log$
+% Revision 1.3  2005/03/04 15:59:21  gjm
+% Documented search options.
+%
 % Revision 1.2  2004/12/06 12:16:21  gjm
 % ldap_result/6 now retrieves all results from backend.
 %
